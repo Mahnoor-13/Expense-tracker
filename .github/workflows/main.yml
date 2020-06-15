@@ -26,5 +26,5 @@ jobs:
        node-version: 12
     - name: Setup Surge
       run: npm install --globaly surge
-    - name: deploy raect app using surge
+    - name: deploy react app using surge
       run: surge ./build expensetracker-app.surge.sh --token ${{secrets.SURGE_TOKEN}}
