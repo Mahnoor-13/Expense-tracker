@@ -7,8 +7,6 @@ name: Deploy Expense Tracker app
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,21 +20,11 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       
-    - name: install nodejs
+    - name: Setup NodeJs
       uses: actions/setup-node@v1.4.2
       with:
        node-version: 12
-       
-    - name: install yarn
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: install # will run `yarn install` command
-      
-    - name: build react app
-      run: yarn build
-      
-    - name: install surge
-      run: npm install -g surge
-    
+    - name: Setup Surge
+      run: npm install --globaly surge
     - name: deploy raect app using surge
-      run: surge ./build expensetrackerapp.surge.sh --token ${{secrets.SURGE_TOKEN}}
+      run: surge ./build expensetracker-app.surge.sh --token ${{secrets.SURGE_TOKEN}}
